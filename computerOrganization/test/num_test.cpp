@@ -21,6 +21,10 @@ TEST(TESTNum, testFloat1)
     auto [s1, s2, s3, s4] = computerOrganization::getFloatDuration();
 
     /**
+     * 不在这两个数的范围内即是溢出
+     * 即计算过程中指数变成了全1或者全0
+     */
+    /**
      * 最大的浮点指数不能全为1，全为1要么是NAN要么是无穷大
      */
     EXPECT_EQ(s1, "7f7fffff");
