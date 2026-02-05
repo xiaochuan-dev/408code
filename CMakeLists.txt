@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
 project(408code)
 
 include(FetchContent)
@@ -16,7 +15,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-enable_testing()
 find_package(GTest CONFIG REQUIRED)
+enable_testing()
 
 add_subdirectory(datastructure)
