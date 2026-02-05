@@ -2,6 +2,8 @@
  * 整数与浮点的编码
  */
 
+#pragma once
+
 #include <climits>
 #include <cfloat>
 #include <tuple>
