@@ -29,7 +29,7 @@
             ]
         },
         {
-            "name": "debug computer organization test",
+            "name": "debug organization test",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/computerOrganization/computerOrganization_test",
@@ -49,9 +49,13 @@
                     "description": "Set Disassembly Flavor to Intel",
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
+                },
+                {
+                    "description": "Disable string repeat compression",
+                    "text": "-gdb-set print repeats 0",
+                    "ignoreFailures": true
                 }
             ]
         }
-
     ]
 }
