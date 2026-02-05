@@ -1,9 +1,9 @@
-#include <gtest/gtest.h>
 #include "Queue.h"
+#include <gtest/gtest.h>
 
 TEST(QueueTest, test1)
 {
-    datastructure::Queue<> q {4};
+    datastructure::Queue<> q{4};
     q.enQueue(2);
     q.enQueue(1);
     q.enQueue(3);
@@ -21,4 +21,3 @@ TEST(QueueTest, test1)
     EXPECT_EQ(q.getFront(), 1);
     EXPECT_EQ(q.getRear(), 4);
 }
-

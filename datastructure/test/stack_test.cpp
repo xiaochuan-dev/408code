@@ -22,12 +22,12 @@ TEST(StackTest, test1)
 
 TEST(StackTest, parenMatch)
 {
-    auto r1 = datastructure::parenMatch(std::string{ "(()[[]])" });
+    auto r1 = datastructure::parenMatch(std::string{"(()[[]])"});
     EXPECT_EQ(r1, true);
 
-    auto r2 = datastructure::parenMatch(std::string{ "([()[]])" });
+    auto r2 = datastructure::parenMatch(std::string{"([()[]])"});
     EXPECT_EQ(r2, true);
 
-    auto r3 = datastructure::parenMatch(std::string{ "[(()[]])" });
+    auto r3 = datastructure::parenMatch(std::string{"[(()[]])"});
     EXPECT_EQ(r3, false);
 }

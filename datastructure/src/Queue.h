@@ -12,7 +12,7 @@ struct Queue
     /**
      * 这里为了和书上操作差不多使用指针不是std::vector
      */
-    T* data;
+    T *data;
 
     int front;
     int rear;
@@ -22,7 +22,7 @@ struct Queue
     ~Queue();
     T getFront();
     T getRear();
-    Queue<T>& enQueue(T);
+    Queue<T> &enQueue(T);
     T deQueue();
     bool empty();
     bool full();
@@ -57,15 +57,15 @@ T Queue<T>::getFront()
 template <typename T>
 T Queue<T>::getRear()
 {
-    int index  = this->rear == 0 ? this->size - 1 : this->rear - 1;
+    int index = this->rear == 0 ? this->size - 1 : this->rear - 1;
     return this->data[index];
 }
 
 template <typename T>
-Queue<T>& Queue<T>::enQueue(T data)
+Queue<T> &Queue<T>::enQueue(T data)
 {
     this->data[this->rear] = data;
-    this->rear = (this->rear + 1) % this->size; 
+    this->rear = (this->rear + 1) % this->size;
     return *this;
 }
 
@@ -88,4 +88,4 @@ bool Queue<T>::full()
 {
     return (this->rear + 1) % this->size == this->front;
 }
-}
+} // namespace datastructure

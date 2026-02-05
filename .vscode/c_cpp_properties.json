@@ -3,13 +3,15 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/include/llvm-18/llvm/**",
+                "/usr/include/c++/14/"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/c++",
+            "compilerPath": "/usr/bin/clang++",
             "cStandard": "c23",
-            "cppStandard": "c++23",
-            "intelliSenseMode": "linux-gcc-x64"
+            "cppStandard": "c++26",
+            "intelliSenseMode": "linux-clang-x64"
         }
     ],
     "version": 4

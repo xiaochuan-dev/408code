@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace datastructure
 {
@@ -44,11 +44,14 @@ bool parenMatch(std::string str)
 {
     Stack<char> s;
 
-    for (char ch: str)
+    for (char ch : str)
     {
-        if (ch == '[' || ch == '(') s.push(ch);
-        else if (ch == ']' && s.pop() != '[') return false;
-        else if (ch == ')' && s.pop() != '(') return false;
+        if (ch == '[' || ch == '(')
+            s.push(ch);
+        else if (ch == ']' && s.pop() != '[')
+            return false;
+        else if (ch == ')' && s.pop() != '(')
+            return false;
     }
     return true;
 }
@@ -59,14 +62,17 @@ bool parenMatch(std::string str)
 bool parenMatch(char *str)
 {
     Stack<char> s;
-    char* cur = str;
+    char *cur = str;
 
     while (*cur != '\0')
     {
         char ch = *(cur);
-        if (ch == '[' || ch == '(') s.push(ch);
-        else if (ch == ']' && s.pop() != '[') return false;
-        else if (ch == ')' && s.pop() != '(') return false;
+        if (ch == '[' || ch == '(')
+            s.push(ch);
+        else if (ch == ']' && s.pop() != '[')
+            return false;
+        else if (ch == ')' && s.pop() != '(')
+            return false;
         cur++;
     }
     return true;
