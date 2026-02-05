@@ -15,7 +15,6 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-# find_package(GTest CONFIG REQUIRED)
 enable_testing()
 
 add_subdirectory(datastructure)
