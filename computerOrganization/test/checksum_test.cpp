@@ -38,7 +38,19 @@ TEST(TESTCHEKSUM, test1)
 
 TEST(TESTCHEKSUM, testCRC)
 {
-    uint32_t num1 = 0b11111111;
-    auto [s1, outNum1, checkNum1] = computerOrganization::crc(num1);
-    EXPECT_EQ(1, 1);
+    auto [s1, outNum1, checkNum1] = computerOrganization::crc41(0b1101);
+    EXPECT_EQ(checkNum1, 0b0010);
+
+    auto [s2, outNum2, checkNum2] = computerOrganization::crc41(0b110);
+    EXPECT_EQ(checkNum2, 0b1001);
+
+    auto [s3, outNum3, checkNum3] = computerOrganization::crc42(0b1101010);
+    EXPECT_EQ(checkNum3, 0b0011);
+
+    auto [s5, outNum5, checkNum5] = computerOrganization::crc5(0b1101010110);
+    EXPECT_EQ(checkNum5, 0b10100);
+
+    auto [_s5, _outNum5, _checkNum5] = computerOrganization::crc5(outNum5);
+    EXPECT_EQ(_checkNum5, 0);
+
 }
