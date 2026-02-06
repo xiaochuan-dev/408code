@@ -1,5 +1,6 @@
 #include "Stack.h"
 #include <gtest/gtest.h>
+#include <cstring>
 
 TEST(StackTest, test1)
 {
@@ -28,6 +29,25 @@ TEST(StackTest, parenMatch)
     auto r2 = datastructure::parenMatch(std::string{"([()[]])"});
     EXPECT_EQ(r2, true);
 
-    auto r3 = datastructure::parenMatch(std::string{"[(()[]])"});
+    auto r3 = datastructure::parenMatch(std::string{"[(()[]])"}.c_str());
     EXPECT_EQ(r3, false);
+}
+
+TEST(StackTest, fixTest)
+{
+    auto s1 = datastructure::infixToSuffix(std::string{"1+2+3"});
+
+    EXPECT_EQ(s1, "12+3+");
+
+    auto s2 = datastructure::infixToSuffix(std::string{"8-(1+2)*2+10/2"});
+
+    EXPECT_EQ(s2, "812+2*-102/+");
+
+
+    char* s_ch1 = "8-(1+2)*2+10/2";
+    char res[20];
+    memset(res, 0 ,20);
+    datastructure::infixToSuffix(s_ch1, res);
+
+    EXPECT_STREQ(res, "812+2*-102/+");
 }

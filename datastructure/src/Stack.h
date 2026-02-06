@@ -12,6 +12,7 @@ struct Stack
     ~Stack() = default;
     Stack &push(T);
     T pop();
+    T top();
     bool empty();
 };
 
@@ -31,10 +32,18 @@ T Stack<T>::pop()
 }
 
 template <typename T>
+T Stack<T>::top()
+{
+    return this->v.back();
+}
+
+template <typename T>
 bool Stack<T>::empty()
 {
     return v.empty();
 }
+
+// 下面开始算法
 
 /**
  * 字符串匹配，只有中括号和小括号
@@ -76,6 +85,113 @@ bool parenMatch(char *str)
         cur++;
     }
     return true;
+}
+
+/**
+ * 中缀转后缀
+ */
+std::string infixToSuffix(std::string input)
+{
+    std::string res;
+
+    Stack<char> s;
+    for (char ch : input)
+    {
+        switch (ch)
+        {
+        case '(':
+            s.push(ch);
+            break;
+        case ')':
+            while (s.top() != '(')
+            {
+                res.push_back(s.pop());
+            }
+            s.pop();
+        break;
+        case '*':
+        case '/':
+            while (!s.empty() && (s.top() == '*' || s.top() == '/'))
+            {
+                res.push_back(s.pop());
+            }
+            s.push(ch);
+            break;
+        case '+':
+        case '-':
+            while ((!s.empty() && (s.top() == '+' || s.top() == '-' || s.top() == '*' || s.top() == '/')))
+            {
+                res.push_back(s.pop());
+            }
+            s.push(ch);
+            break;
+        default:
+            res.push_back(ch);
+            break;
+        }
+    }
+    while (!s.empty())
+    {
+        res.push_back(s.pop());
+    }
+    return res;
+}
+
+/**
+ * 中缀转后缀c语言版本
+ */
+void infixToSuffix(char* input, char* res)
+{
+    Stack<char> s;
+    char* ch = input;
+    char* _res = res;
+
+    while (*ch != '\0')
+    {
+        switch (*ch)
+        {
+        case '(':
+            s.push(*ch);
+            break;
+        case ')':
+            while (s.top() != '(')
+            {
+                *_res = s.pop();
+                _res++;
+            }
+            s.pop();
+        break;
+        case '*':
+        case '/':
+            while (!s.empty() && (s.top() == '*' || s.top() == '/'))
+            {
+                *_res = s.pop();
+                _res++;
+            }
+            s.push(*ch);
+            break;
+        case '+':
+        case '-':
+            while ((!s.empty() && (s.top() == '+' || s.top() == '-' || s.top() == '*' || s.top() == '/')))
+            {
+                *_res = s.pop();
+                _res++;
+            }
+            s.push(*ch);
+            break;
+        default:
+            *_res = *ch;
+            _res++;
+            break;
+        }
+        ch++;
+    }
+
+    while (!s.empty())
+    {
+        *_res = s.pop();
+        _res++;
+    }
 }
 
 } // namespace datastructure
