@@ -8,25 +8,27 @@
 #include <tuple>
 #include <format>
 #include <functional>
-
+#include <cstdint>
 
 namespace computerOrganization
 {
-
-std::function<std::tuple<int, std::string>(std::string)> make_checksum(bool even = true)
+/**
+ * 这里只实现7位的源数据，加校验位8位
+ */
+std::function<std::tuple<uint8_t, uint8_t, std::string>(uint8_t)> make_checksum(bool even = true)
 {
-    auto generate = [even](std::string str) {
+    auto generate = [even](uint8_t input) {
 
-        int checkflag = *(str.begin()) - '0';
-        for (auto it = str.begin() + 1; it != str.end(); ++it)
+        uint8_t checkflag = input & 1;
+        for (size_t i = 1; i < 8; i++)
         {
-            checkflag ^= ((*it) - '0');
+            checkflag ^= ((input >> i) & 1);
         }
         
         if (!even) checkflag = !checkflag;
 
-        auto res = std::format("{}{}", str, checkflag);
-        return std::make_tuple(checkflag, res);
+        auto res = std::format("{:07b}{}", input, checkflag);
+        return std::make_tuple(checkflag, (input << 1) | checkflag, res);
     };
 
     return generate;
