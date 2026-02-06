@@ -23,17 +23,16 @@ TEST(TESTCHEKSUM, test1)
      * 进行校验时再进行一边校验码生成算法，这次带上了校验码，生成的新的结果1表示有错，0表示无错
      * 下面两个是接收方校验
      */
-
-    auto [flag3, _, _] = computerOrganization::generateEven(numWithCheckSum1);
+    auto [flag3, _1, _2] = computerOrganization::generateEven(numWithCheckSum1);
     EXPECT_EQ(flag3, 0);
-    auto [flag4, _, _] = computerOrganization::generateOdd(numWithCheckSum2);
+    auto [flag4, _3, _4] = computerOrganization::generateOdd(numWithCheckSum2);
     EXPECT_EQ(flag4, 0);
 
     /**
      * 这是一个出错的偶检验码
      */
     uint8_t num5 = 0b10110010;
-    auto [flag5, _, _] = computerOrganization::generateOdd(num5);
+    auto [flag5, _5, _6] = computerOrganization::generateOdd(num5);
     EXPECT_EQ(flag5, 1);
 }
 
