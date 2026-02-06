@@ -1,6 +1,6 @@
 #include "Stack.h"
-#include <gtest/gtest.h>
 #include <cstring>
+#include <gtest/gtest.h>
 
 TEST(StackTest, test1)
 {
@@ -43,10 +43,9 @@ TEST(StackTest, fixTest)
 
     EXPECT_EQ(s2, "812+2*-102/+");
 
-
-    char* s_ch1 = "8-(1+2)*2+10/2";
+    char *s_ch1 = "8-(1+2)*2+10/2";
     char res[20];
-    memset(res, 0 ,20);
+    memset(res, 0, 20);
     datastructure::infixToSuffix(s_ch1, res);
 
     EXPECT_STREQ(res, "812+2*-102/+");

@@ -6,12 +6,14 @@ TEST(TESTCHEKSUM, test1)
 {
 
     uint8_t num1 = 0b1010001;
-    auto [flag1, numWithCheckSum1, strWithCheckSum1] = computerOrganization::generateEven(num1);
+    auto [flag1, numWithCheckSum1, strWithCheckSum1] =
+        computerOrganization::generateEven(num1);
     EXPECT_EQ(flag1, 1);
     EXPECT_EQ(strWithCheckSum1, "10100011");
 
     uint8_t num2 = 0b1010001;
-    auto [flag2, numWithCheckSum2, strWithCheckSum2] = computerOrganization::generateOdd(num2);
+    auto [flag2, numWithCheckSum2, strWithCheckSum2] =
+        computerOrganization::generateOdd(num2);
     EXPECT_EQ(flag2, 0);
     EXPECT_EQ(strWithCheckSum2, "10100010");
     EXPECT_EQ(numWithCheckSum2, 0b10100010);
@@ -33,4 +35,11 @@ TEST(TESTCHEKSUM, test1)
     uint8_t num5 = 0b10110010;
     auto [flag5, _, _] = computerOrganization::generateOdd(num5);
     EXPECT_EQ(flag5, 1);
+}
+
+TEST(TESTCHEKSUM, testCRC)
+{
+    uint32_t num1 = 0b11111111;
+    auto [s1, outNum1, checkNum1] = computerOrganization::crc(num1);
+    EXPECT_EQ(1, 1);
 }

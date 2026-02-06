@@ -108,7 +108,7 @@ std::string infixToSuffix(std::string input)
                 res.push_back(s.pop());
             }
             s.pop();
-        break;
+            break;
         case '*':
         case '/':
             while (!s.empty() && (s.top() == '*' || s.top() == '/'))
@@ -119,7 +119,8 @@ std::string infixToSuffix(std::string input)
             break;
         case '+':
         case '-':
-            while ((!s.empty() && (s.top() == '+' || s.top() == '-' || s.top() == '*' || s.top() == '/')))
+            while ((!s.empty() && (s.top() == '+' || s.top() == '-' ||
+                                   s.top() == '*' || s.top() == '/')))
             {
                 res.push_back(s.pop());
             }
@@ -140,11 +141,11 @@ std::string infixToSuffix(std::string input)
 /**
  * 中缀转后缀c语言版本
  */
-void infixToSuffix(char* input, char* res)
+void infixToSuffix(char *input, char *res)
 {
     Stack<char> s;
-    char* ch = input;
-    char* _res = res;
+    char *ch = input;
+    char *_res = res;
 
     while (*ch != '\0')
     {
@@ -160,7 +161,7 @@ void infixToSuffix(char* input, char* res)
                 _res++;
             }
             s.pop();
-        break;
+            break;
         case '*':
         case '/':
             while (!s.empty() && (s.top() == '*' || s.top() == '/'))
@@ -172,7 +173,8 @@ void infixToSuffix(char* input, char* res)
             break;
         case '+':
         case '-':
-            while ((!s.empty() && (s.top() == '+' || s.top() == '-' || s.top() == '*' || s.top() == '/')))
+            while ((!s.empty() && (s.top() == '+' || s.top() == '-' ||
+                                   s.top() == '*' || s.top() == '/')))
             {
                 *_res = s.pop();
                 _res++;

@@ -21,3 +21,6 @@ jobs:
       - name: test computer organization
         run: |
           ./build/computerOrganization/computerOrganization_test
+      - name: test operationSystem
+        run: |
+          ./build/operationSystem/operationSystem_test

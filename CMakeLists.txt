@@ -20,3 +20,4 @@ enable_testing()
 
 add_subdirectory(datastructure)
 add_subdirectory(computerOrganization)
+add_subdirectory(operationSystem)

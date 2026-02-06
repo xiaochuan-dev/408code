@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include <climits>
-#include <cfloat>
-#include <tuple>
-#include <string>
-#include <format>
 #include <bitset>
+#include <cfloat>
+#include <climits>
+#include <format>
+#include <string>
+#include <tuple>
 
 namespace computerOrganization
 {
@@ -17,12 +17,14 @@ namespace computerOrganization
 /**
  * 这里只给出16位的整数的内存内容，32位64位依次
  */
-std::tuple<std::string, std::string, std::string, std::string> getInt16Duration()
+std::tuple<std::string, std::string, std::string, std::string>
+getInt16Duration()
 {
     short num1 = INT16_MAX;
 
     std::string hex1 = std::format("{:04x}", num1);
-    std::string b1 = std::format("{:016b}", std::bit_cast<unsigned short>(num1));
+    std::string b1 =
+        std::format("{:016b}", std::bit_cast<unsigned short>(num1));
 
     short num2 = INT16_MIN;
     auto _num2 = std::bit_cast<unsigned short>(num2);
@@ -36,7 +38,8 @@ std::tuple<std::string, std::string, std::string, std::string> getInt16Duration(
 /**
  * 获取float的最大值和最小值，double一样的逻辑这里不实现
  */
-std::tuple<std::string, std::string, std::string, std::string> getFloatDuration()
+std::tuple<std::string, std::string, std::string, std::string>
+getFloatDuration()
 {
 
     float _max = FLT_MAX;
@@ -51,5 +54,4 @@ std::tuple<std::string, std::string, std::string, std::string> getFloatDuration(
 
     return std::make_tuple(hex1, b1, hex2, b2);
 }
-}
-
+} // namespace computerOrganization
