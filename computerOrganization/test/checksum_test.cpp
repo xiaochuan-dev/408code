@@ -52,5 +52,4 @@ TEST(TESTCHEKSUM, testCRC)
 
     auto [_s5, _outNum5, _checkNum5] = computerOrganization::crc5(outNum5);
     EXPECT_EQ(_checkNum5, 0);
-
 }

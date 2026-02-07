@@ -33,7 +33,7 @@ TEST(StackTest, parenMatch)
     EXPECT_EQ(r3, false);
 }
 
-TEST(StackTest, fixTest)
+TEST(StackTest, infixToSuffixTest)
 {
     auto s1 = datastructure::infixToSuffix(std::string{"1+2+3"});
 
@@ -49,4 +49,19 @@ TEST(StackTest, fixTest)
     datastructure::infixToSuffix(s_ch1, res);
 
     EXPECT_STREQ(res, "812+2*-102/+");
+}
+
+TEST(StackTest, infixToPrefixTest)
+{
+    auto s1 = datastructure::infixToPrefix(std::string{"2+3*4"});
+    EXPECT_EQ(s1, "+2*34");
+
+    auto s2 = datastructure::infixToPrefix(std::string{"3*4+2"});
+    EXPECT_EQ(s2, "+*342");
+}
+
+TEST(StackTest, suffixToInfixTest)
+{
+    auto s1 = datastructure::suffixToInfix("12+3+");
+    EXPECT_EQ(s1, "1+2+3");
 }

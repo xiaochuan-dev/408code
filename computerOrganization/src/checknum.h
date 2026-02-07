@@ -7,9 +7,9 @@
 #include <cstdint>
 #include <format>
 #include <functional>
+#include <map>
 #include <string>
 #include <tuple>
-#include <map>
 
 namespace computerOrganization
 {
@@ -51,7 +51,8 @@ auto generateOdd = make_checksum(false);
  * 参数3是校验码
  */
 
-enum class CRCSTAND {
+enum class CRCSTAND
+{
     CRC3,
     CRC4,
     CRC41,
@@ -71,14 +72,14 @@ std::map<CRCSTAND, CRCT> CRCMAP = {
     {CRCSTAND::CRC4, CRCT{"CRC-4", 0b10011, 4}},
     {CRCSTAND::CRC41, CRCT{"CRC-41", 0b11101, 4}},
     {CRCSTAND::CRC42, CRCT{"CRC-42", 0b11001, 4}},
-    {CRCSTAND::CRC5, CRCT{"CRC-5", 0b110101, 5}}
-};
+    {CRCSTAND::CRC5, CRCT{"CRC-5", 0b110101, 5}}};
 
 std::function<std::tuple<std::string, uint32_t, uint32_t>(uint32_t)>
 crc(CRCSTAND s)
 {
     CRCT c = CRCMAP[s];
-    auto f = [c](uint32_t input) {
+    auto f = [c](uint32_t input)
+    {
         const uint32_t G = c.G;
         /**
          * 先左移r位
@@ -97,7 +98,7 @@ crc(CRCSTAND s)
             num ^= (G << (shift - c.checksumLength));
         }
 
-        uint32_t res =  (input << c.checksumLength) | num;
+        uint32_t res = (input << c.checksumLength) | num;
         std::string bstr = std::format("{:032b}", res);
         return std::make_tuple(bstr, res, num);
     };

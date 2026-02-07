@@ -196,4 +196,88 @@ void infixToSuffix(char *input, char *res)
     }
 }
 
+/**
+ * 中缀转前缀
+ */
+std::string infixToPrefix(std::string input)
+{
+    std::string res;
+
+    Stack<char> s;
+    for (auto it = input.rbegin(); it != input.rend(); it++)
+    {
+        char ch = *it;
+        switch (ch)
+        {
+        case ')':
+            s.push(ch);
+            break;
+        case '(':
+            while (s.top() != '(')
+            {
+                res.insert(res.begin(), s.pop());
+            }
+            s.pop();
+            break;
+        case '*':
+        case '/':
+            while (!s.empty() && (s.top() == '*' || s.top() == '/'))
+            {
+                res.insert(res.begin(), s.pop());
+            }
+            s.push(ch);
+            break;
+        case '+':
+        case '-':
+            while ((!s.empty() && (s.top() == '+' || s.top() == '-' ||
+                                   s.top() == '*' || s.top() == '/')))
+            {
+                res.insert(res.begin(), s.pop());
+            }
+            s.push(ch);
+            break;
+        default:
+            res.insert(res.begin(), ch);
+            break;
+        }
+    }
+    while (!s.empty())
+    {
+        res.insert(res.begin(), s.pop());
+    }
+    return res;
+}
+
+/**
+ * 表达式求值
+ * 这里不求值，只做后缀转中缀，求值一样的逻辑
+ */
+std::string suffixToInfix(std::string input)
+{
+    std::string res;
+
+    Stack<std::string> s;
+
+    for (char ch : input)
+    {
+        std::string rightVal;
+        std::string leftVal;
+        switch (ch)
+        {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            rightVal = s.pop();
+            leftVal = s.pop();
+            s.push(leftVal + ch + rightVal);
+            break;
+        default:
+            s.push(std::string{ch});
+            break;
+        }
+    }
+    return s.pop();
+}
+
 } // namespace datastructure
