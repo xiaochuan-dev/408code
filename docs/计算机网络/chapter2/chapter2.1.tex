@@ -11,7 +11,7 @@
 
 \begin{enumerate}
     \item 成帧
-    \item 差错控制
+    \item 差错控制（可靠数据传输）
     \item 流量控制
 \end{enumerate}
 
@@ -92,19 +92,138 @@ hlines,
 vlines,
 }
 协议 & 发送窗口大小 & 接受窗口大小 & 详细 \\
-停止等待协议 & 1 & 1 & 超时计时器，ack，重传 \\
+停止等待协议 & 1 & 1 & 超时计时器，ack，帧编号 \\
 回退N帧协议 & n & 1 & 使用累计确认，有错重传上一个ack之后的帧片段 \\
 选择重传 & n & n & 使用nak，只重传出错的帧
 \end{tblr}
-
-传输率 = RTT/一个发送周期的时间
-
+\vspace{8pt}
+传输率 = 发送时间/一个发送周期的时间
+\vspace{8pt}
 \begin{tblr}[caption="传输率"]{
 colspec={X[1] X[1] X[1] X[5]},
 hlines,
 vlines,
 }
-停止等待协议 &  RTT/发送时间+接收时间+RTT \\
-回退N帧协议 &  n * RTT/发送时间+接收时间+RTT, n是发送窗口大小 \\
+停止等待协议 &  发送时间/发送时间+接收时间+RTT \\
+回退N帧协议 &  n * 发送时间/(发送时间+接收时间+RTT, n是发送窗口大小) \\
 选择重传 & 1
 \end{tblr}
+
+\section{介质访问控制子层MAC}
+
+在广播信道出现，多个设备共享同一条链路
+
+\subsection{静态介质访问控制}
+
+通过物理层的复用实现(见上节)
+
+\subsection{动态介质访问控制}
+
+\subsubsection{ALOHA}
+
+\begin{tblr}{
+colspec={X[1] X[5]},
+hlines,
+vlines,
+}
+ALOHA &  原始的动态介质访问控制，随机发送，有冲突后随机再发 \\
+时隙ALOHA &  信道分为等长时隙，只有在时隙开始时才能发送，发送一帧的时间小于等于时隙
+\end{tblr}
+
+\subsubsection{CSMA}
+\begin{tblr}{
+colspec={X[1] X[5]},
+hlines,
+vlines,
+}
+1坚持CSMA &  信道空闲发送，信道忙则侦听至信道空闲 \\
+非坚持CSMA &  信道空闲发送，信道忙则随机等待一段时间再开始监听 \\
+p-坚持CSMA & 适用于时隙信道，信道空闲有p概率发送,1-p概率到下一个时隙监听，信道忙则下一个时隙继续监听，
+\end{tblr}
+
+\subsubsection{CSMA/CD}
+
+带冲突检测的CSMD,通过电压变化来检测冲突，发送时持续侦听。检测到碰撞后使用截断二进制指数退避算法。至少要2倍传播时延才能确定有没有冲突，争用期就是最小能检测到冲突的时间，也就是必须持续侦听2倍传播时延，即
+$$
+\text{最小帧长} = \text{把数据从网卡发送到链路的速度(数据传输率)} \times \text{2倍传播时延}
+$$
+
+截断二进制指数退避算法
+
+\begin{enumerate}
+    \item 取争用期作为基本时间
+    \item 当前已重传次数为$n$, $k = \min(10, n+1)$, $r = rand(0, 2^{k-1})$
+    \item 取$r$倍的基本时间为推迟时间
+\end{enumerate}
+
+\subsubsection{CSMA/CA}
+
+碰撞避免。使用虚拟载波侦听，使用RTS(Request To Send),CTS(Clear To Send)来预约信道。发送方发送RTS，接收方广播CTS
+
+\section{以太网}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{pics/p2.1.png}
+\end{center}
+
+只有以太网的帧地址目的地址在前源地址在后
+
+\section{802.11无线网}
+
+使用正交频分复用(OFDM)
+
+\begin{enumerate}
+    \item 分布式模型
+    \item 自组织模型（用的很少）
+\end{enumerate}
+
+\subsection{帧间间隔}
+
+在监听到信道空闲后还需要等待一段时间才能发送帧，叫帧间间隔
+
+\begin{tblr}{
+colspec={X[1] X[5]},
+hlines,
+vlines,
+}
+SIFS (Shortest InterFrame Space) & 优先级最高，CTS,ACK帧使用  \\
+PIFS &  在PCF模式下工作，介于DIFS和SIFS \\
+DIFS & 正常数据帧和RTS帧使用
+\end{tblr}
+
+\subsection{帧结构}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{pics/p2.2.png}
+\end{center}
+
+DS是AP背后的有线网络
+
+\begin{tblr}{
+colspec={X[1] X[1] X[5]},
+hlines,
+vlines,
+}
+Address 1 & 接收者地址 & 总是表示这一帧在当前传输阶段的直接接收者（即下一个要接收此无线电波的设备）。  \\
+Address 2 & 发送者地址 & 总是表示这一帧在当前传输阶段的直接发送者（即发出此无线电波的设备）。 \\
+Address 3 & 过滤/路由地址 & 这是最核心的地址。通常用于AP在无线和有线网络之间进行地址过滤或路由。在大多数情况下，它承载着最终目的地址或原始源地址。\\
+Address 4 & 特殊情况下使用 & 仅在无线分布式系统中，数据在两个AP之间桥接时使用。
+\end{tblr}
+
+
+\begin{tblr}{
+  colspec = {X[2] X[1] X[1] X[4] X[1] X[1] X[1] X[1]},
+  hlines,
+  vlines,
+}
+场景 & To DS & From DS & 场景描述 & Address 1 (接收者) & Address 2 (发送者) & Address 3 (过滤/路由) & Address 4 \\
+1. 站到站 & 0 & 0 & 同一个Wi-Fi网络内的两个客户端直接通信（Ad-hoc模式，或支持客户端直连）。 & 目的MAC & 源MAC & BSSID & 未使用 \\
+2. 客户端发送给AP & 1 & 0 & 客户端（如手机）发送数据给AP，目的是让AP将其转发到有线网络或另一个客户端。 & AP的MAC & 客户端MAC & 目的MAC & 未使用 \\
+3. AP发送给客户端 & 0 & 1 & AP从有线网络收到数据，将其发送给目标客户端。 & 客户端MAC & AP的MAC & 源MAC & 未使用 \\
+4. 无线中继（WDS） & 1 & 1 & 数据在两个AP之间进行无线桥接（不常见）。 & 接收AP的MAC & 发送AP的MAC & 目的MAC & 源MAC \\
+\end{tblr}
+注：BSSID（基本服务集标识符）通常就是 AP 的无线接口 MAC 地址。
+
+\section{交换机}
+
+交换机通过\redtext{源MAC地址}来学习填充交换表，如果目的地址不在交换表里面则广播除了发送地址接口的所有接口

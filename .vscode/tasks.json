@@ -27,7 +27,7 @@
         },
         {
             "type": "shell",
-            "label": "compile latex",
+            "label": "compile latex计算机网络",
             "command": "latexmk -f -xelatex -quiet -time -cd ./docs/计算机网络/main.tex -jobname=\"计算机网络\"",
             "problemMatcher": [],
             "options": {
