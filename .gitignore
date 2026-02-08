@@ -1,5 +1,12 @@
 build
-*.pdf
+
+*.aux
+*.toc
+*.xdv
+*.fls
+*.log
+*.fdb_latexmk
+
 # Prerequisites
 *.d
 

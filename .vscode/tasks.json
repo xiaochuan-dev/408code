@@ -1,7 +1,7 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
+    "version": "2.0.0",
+    "tasks": [
+        {
             "type": "shell",
             "label": "config",
             "command": "cmake -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
@@ -10,7 +10,7 @@
         {
             "type": "shell",
             "label": "clean",
-        "command": "rm -rf ./build",
+            "command": "rm -rf ./build",
             "problemMatcher": []
         },
         {
@@ -24,6 +24,17 @@
             "label": "format",
             "command": "find . -name '*.cpp' -o -name '*.h' | xargs clang-format -i",
             "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "compile latex",
+            "command": "latexmk -f -xelatex -quiet -time -cd ./docs/计算机网络/main.tex -jobname=\"计算机网络\"",
+            "problemMatcher": [],
+            "options": {
+                "env": {
+                    "PATH": "/usr/local/texlive/2025/bin/x86_64-linux:${env:PATH}"
+                }
+            }
         }
-	]
+    ]
 }

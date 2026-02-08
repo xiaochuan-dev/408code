@@ -1,0 +1,95 @@
+\documentclass[oneside]{book}
+\usepackage[fontset=ubuntu,heading=true]{ctex}
+
+\usepackage{graphicx}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor} 
+\usepackage{tabularray}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage[bookmarksnumbered]{hyperref}
+\usepackage{enumitem}
+\usepackage[
+  a4paper,
+  left=1cm,
+  right=1cm,
+  top=2cm,
+  bottom=2cm,
+]{geometry}
+
+\hypersetup{
+    hidelinks,
+}
+
+\setlength{\parindent}{2em}
+
+\newcommand{\redbox}[2][]{%
+    \begin{tcolorbox}[
+        enhanced,              % 启用增强功能
+        colback=red!10,        % 浅红色背景
+        colframe=red!10!, % 红色边框
+        colbacktitle=red!30,   % 标题背景色
+        coltitle=black,        % 标题文字颜色
+        title=#1,              % 标题内容
+        fonttitle=\bfseries,   % 标题加粗
+        boxrule=1pt,           % 边框粗细
+        arc=4pt,               % 圆角半径
+        boxsep=5pt,            % 内边距
+        left=6pt, right=6pt,   % 左右边距
+        top=4pt, bottom=4pt,   % 上下边距
+        breakable,             % 允许跨页
+        before skip=10pt,      % 框前间距
+        after skip=10pt       % 框后间距
+    ]
+    #2
+    \end{tcolorbox}%
+}
+
+\newcommand{\red}[1]{\textcolor{red!80}{#1}}
+
+\newcommand{\redtext}[1]{\textcolor{red!80}{#1}}
+
+\newcommand{\shortcut}[2][]{%
+    \begin{tcolorbox}[
+        enhanced,              % 启用增强功能
+        colback=blue!10,        % 浅红色背景
+        colframe=blue!10!, % 红色边框
+        colbacktitle=red!30,   % 标题背景色
+        coltitle=black,        % 标题文字颜色
+        title=#1,              % 标题内容
+        fonttitle=\bfseries,   % 标题加粗
+        boxrule=1pt,           % 边框粗细
+        arc=4pt,               % 圆角半径
+        boxsep=5pt,            % 内边距
+        left=6pt, right=6pt,   % 左右边距
+        top=4pt, bottom=4pt,   % 上下边距
+        breakable,             % 允许跨页
+        before skip=10pt,      % 框前间距
+        after skip=10pt       % 框后间距
+    ]
+    #2
+    \end{tcolorbox}%
+}
+
+\let\leq\leqslant
+\let\geq\geqslant
+
+\title{计算机网络}
+\author{xiaochuan}
+\date{\today}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+\tableofcontents
+\mainmatter
+
+\chapter{物理层}
+\input{chapter1/chapter1.tex}
+
+\chapter{链路层}
+\input{chapter2/chapter2.1.tex}
+
+\end{document}
