@@ -5,7 +5,8 @@
 TEST(SortTest, testInsertSort)
 {
     int arr[] = {2, 1, 3, 5, 4};
+    int n = sizeof(arr) / sizeof(int);
 
-    datastructure::insertSort(arr, sizeof(arr) / sizeof(int));
-
+    // datastructure::insertSort(arr, n);
+    datastructure::shellSort(arr, n);
 }
